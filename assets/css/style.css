@@ -3,12 +3,25 @@ Universal and Page-Wide CSS
 ================================== */
 
 body {
-    background: brown;
+    background-image: url("../images/forest.jpg");
+    background-size: cover;
+    min-height:95vh;
 }
 
 /* ==================================
 Header and Body CSS
 ================================== */
+
+#title, #main-content {
+    width:50vw;
+    margin-left: auto;
+    margin-right: auto;
+    padding:2em;
+
+    background-color: rgba(0,0,0,.75);
+    color: white;
+    text-align: center;
+}
 
 
 /* ==================================
@@ -18,3 +31,19 @@ Choice Selection CSS
 /* ==================================
 Feedback Section CSS
 ================================== */
+
+/* ==================================
+Footer CSS
+================================== */
+
+#footer {
+    position:absolute;
+    width:50vw;
+    left:0;
+    right:0;
+    margin:auto;
+    bottom:0;
+
+    color:white;
+    text-align: center;
+}
