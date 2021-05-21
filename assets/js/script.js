@@ -15,6 +15,24 @@ Timer reaches 0, call fail function
 All questions answered, freeze timer
 */
 
+/*=======================================
+// Quiz Question Array
+------------------------------------------
+Stores the questions and answers in a single
+semi-convenient object, an array of objects
+=========================================*/
+var quizData = [
+    {
+        question : "Question here.",
+        answers : {
+            a : "Choice",
+            b : "Choice",
+            c : "Choice",
+            d : "Choice"
+        },
+        correct : "d"
+    }
+];
 
 /*=======================================
 // Quiz Logic Module
@@ -23,10 +41,12 @@ Handles the backend logic of the quiz app
 =========================================*/
 var quizLogic = (function() {
 
+    var startTimer = function() {
+        // Timer code here
+    }
+
     return {
-        testMethod : function() {
-            console.log("It worked!");
-        }
+        startTimer : startTimer
     };
 })();
 
@@ -37,6 +57,9 @@ Interfaces with the DOM and the GUI
 ====================================*/
 var quizInterface = (function() {
 
+    return {
+        land
+    }
 })();
 
 /*====================================
@@ -44,5 +67,3 @@ var quizInterface = (function() {
 ------------------------------------------
 Initiates the app
 ====================================*/
-
-quizLogic.testMethod();

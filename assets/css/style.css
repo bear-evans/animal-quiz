@@ -47,3 +47,7 @@ Footer CSS
     color:white;
     text-align: center;
 }
+
+#footer a {
+    color:bisque;
+}
