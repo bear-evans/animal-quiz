@@ -16,6 +16,16 @@ All questions answered, freeze timer
 */
 
 /*=======================================
+// Global Variables
+------------------------------------------
+Declares global variables, including commonly
+manipulated DOM elements
+=========================================*/
+var questionBox = document.getElementById("question");
+var choiceBoxes = document.querySelectorAll(".choicebox");
+var feedbackBox = document.getElementById("feedback");
+
+/*=======================================
 // Quiz Question Array
 ------------------------------------------
 Stores the questions and answers in a single
@@ -57,8 +67,13 @@ Interfaces with the DOM and the GUI
 ====================================*/
 var quizInterface = (function() {
 
+    function initQuiz() {
+        questionBox.textContent = "Welcome to Bear's Animal Facts! You will have a limited time to answer 10 animal related questions. You lose time for wrong answers, so choose carefully! Try to complete it with as much time remaining as possible!";
+        choiceBoxes[1].textContent = "Start Quiz";
+    }
+
     return {
-        land
+        initQuiz : initQuiz
     }
 })();
 
@@ -67,3 +82,6 @@ var quizInterface = (function() {
 ------------------------------------------
 Initiates the app
 ====================================*/
+
+console.log(choiceBoxes);
+quizInterface.initQuiz();
