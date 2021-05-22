@@ -51,12 +51,18 @@ Handles the backend logic of the quiz app
 =========================================*/
 var quizLogic = (function() {
 
+    var onClick = function(event) {
+        console.log("You clicked me and I worked!");
+        // General click handler
+    }
+
     var startTimer = function() {
         // Timer code here
     }
 
     return {
-        startTimer : startTimer
+        startTimer : startTimer,
+        onClick : onClick
     };
 })();
 
@@ -70,6 +76,9 @@ var quizInterface = (function() {
     function initQuiz() {
         questionBox.textContent = "Welcome to Bear's Animal Facts! You will have a limited time to answer 10 animal related questions. You lose time for wrong answers, so choose carefully! Try to complete it with as much time remaining as possible!";
         choiceBoxes[1].textContent = "Start Quiz";
+        for (var i = 0; i < choiceBoxes.length; i++) {
+            choiceBoxes[i].addEventListener('click', quizLogic.onClick);
+        }
     }
 
     return {
@@ -83,5 +92,4 @@ var quizInterface = (function() {
 Initiates the app
 ====================================*/
 
-console.log(choiceBoxes);
 quizInterface.initQuiz();
