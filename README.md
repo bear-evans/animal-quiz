@@ -1,4 +1,4 @@
-# Javascript Password Generator
+# Animal Quiz
 
 ![screenshot](https://raw.githubusercontent.com/bear-evans/animal-quiz/main/assets/Screenshot.jpg)
 
