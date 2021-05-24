@@ -253,8 +253,13 @@ var quizInterface = (function() {
     // Handles the drawing of the win screen
     function drawPass() {
         clearInterval(timer);
-        playerName = window.prompt("You won! Please enter your name for the leaderboard.");
-        questionBox.innerHTML = "<p>Congratulations, " + playerName + "! You completed the quiz with " + timeRemaining + " seconds on the clock.</p><p>Thanks for playing!</p>";
+        var playerName = window.prompt("You won! Please enter your name for the leaderboard.");
+        if (playerName == "") {
+            console.log("playerName is " + playerName);
+            playerName = "Player";
+            console.log("playerName is " + playerName);
+        }
+        questionBox.innerHTML = "<p>Congratulations, " + playerName + "! You completed the quiz with " + timeRemaining + " seconds on the clock.</p> <p>Thanks for playing!</p>";
         for (var i = 0; i < choiceBoxes.length; i++) {
             choiceBoxes[i].setAttribute("class", "hide");
         }
