@@ -42,6 +42,7 @@ Header and Body CSS
 
 #question {
     display: flex;
+    flex-direction: column;
     height: 100px;
 }
 
