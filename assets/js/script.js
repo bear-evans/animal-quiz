@@ -211,7 +211,7 @@ var quizLogic = (function() {
             choiceBoxes[i].setAttribute("class", "choicebox");
         }
         currentQuestion = 1;
-        timeRemaining = 30;
+        timeRemaining = 45;
         console.log("Setting timer");
         timer = setInterval(checkTime, 1000);
         incrementQuiz();
