@@ -27,6 +27,8 @@ Header and Body CSS
 ================================== */
 
 #wrapper {
+    display: flex;
+    flex-direction: column;
     background-color: rgba(0,0,0,.75);
     min-height: 80vh;
     width:50vw;
@@ -39,6 +41,7 @@ Header and Body CSS
 }
 
 #question {
+    display: flex;
     height: 100px;
 }
 
@@ -64,6 +67,10 @@ Choice Selection CSS
     font-size: 1em;
     padding-top:0.25em;
     justify-content: center;
+}
+
+.choiceboxdark {
+    background-color: unset;
 }
 
 /* ==================================

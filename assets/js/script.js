@@ -237,7 +237,7 @@ var quizInterface = (function() {
         // Hook in event listeners on choiceboxes
         for (var i = 0; i < choiceBoxes.length; i++) {
             choiceBoxes[i].addEventListener('click', quizLogic.onClick);
-            choiceBoxes[i].setAttribute("class", "hide");
+            choiceBoxes[i].setAttribute("class", "choicebox choiceboxdark");
         }
         choiceBoxes[1].setAttribute("class", "choicebox");
     }
