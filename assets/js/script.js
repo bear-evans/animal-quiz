@@ -234,11 +234,12 @@ var quizInterface = (function() {
     // Initializes or reinitializes the quiz
     function initQuiz() {
         drawQuiz(0);
-
         // Hook in event listeners on choiceboxes
         for (var i = 0; i < choiceBoxes.length; i++) {
             choiceBoxes[i].addEventListener('click', quizLogic.onClick);
+            choiceBoxes[i].setAttribute("class", "hide");
         }
+        choiceBoxes[1].setAttribute("class", "choicebox");
     }
 
     // Sets the question and answers to match the current level
