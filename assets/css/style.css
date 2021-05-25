@@ -73,6 +73,11 @@ Choice Selection CSS
 .choiceboxdark {
     background-color: unset;
 }
+=======
+.choicebox:hover {
+    color:black;
+    background-color: white;
+}
 
 /* ==================================
 Footer CSS
