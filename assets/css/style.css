@@ -18,9 +18,11 @@ body {
 h1 {
     font-family: 'Mate SC', serif;
 }
+
 .hide {
     display: none;
 }
+
 
 /* ==================================
 Header and Body CSS
@@ -58,7 +60,6 @@ Choice Selection CSS
 
 .choicebox {
     display: flex;
-    background-color: rgba(255,255,255,0.25);
     padding: 0;
     border-radius: 50px;
     margin:1em;
@@ -70,13 +71,19 @@ Choice Selection CSS
     justify-content: center;
 }
 
-.choiceboxdark {
-    background-color: unset;
+.choiceboxlight {
+    background-color: rgba(255,255,255,0.25);
 }
 
-.choicebox:hover {
+.choiceboxlight:hover {
     color:black;
     background-color: white;
+}
+
+#timer {
+    display: flex;
+    justify-content:center;
+    align-self: flex-end;
 }
 
 /* ==================================

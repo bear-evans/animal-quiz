@@ -4,9 +4,11 @@
 Declares global variables, including commonly
 manipulated DOM elements
 =========================================*/
-var questionBox = document.getElementById("question");
-var choiceBoxes = document.querySelectorAll(".choicebox");
-var feedbackBox = document.getElementById("feedback");
+const questionBox = document.getElementById("question");
+const choiceBoxes = document.querySelectorAll(".choicebox");
+const feedbackBox = document.getElementById("feedback");
+const timerBox = document.getElementById("timer");
+const formBox = document.getElementById("form");
 
 var currentQuestion = 0;
 var completedQuestions = [];
@@ -173,9 +175,8 @@ var quizLogic = (function() {
     }
 
     function checkTime() {
-        console.log("Checking time");
         timeRemaining = timeRemaining - 1;
-        console.log(timeRemaining);
+        quizInterface.drawTimer();
         if (timeRemaining <= 0) {
             console.log("Clearing timer")
             clearInterval(timer);
@@ -206,14 +207,17 @@ var quizLogic = (function() {
 
     // Sets and starts the timer, normalizes variables, and moves forward
     function startQuiz() {
+        // hide the form if it was shown
+        formBox.setAttribute("class", "hide");
         // Show the choiceboxes if they were hidden
         for (var i = 0; i < choiceBoxes.length; i++) {
-            choiceBoxes[i].setAttribute("class", "choicebox");
+            choiceBoxes[i].setAttribute("class", "choicebox choiceboxlight");
         }
         currentQuestion = 1;
         timeRemaining = 45;
         console.log("Setting timer");
         timer = setInterval(checkTime, 1000);
+        quizInterface.drawTimer();
         incrementQuiz();
     }
 
@@ -237,9 +241,9 @@ var quizInterface = (function() {
         // Hook in event listeners on choiceboxes
         for (var i = 0; i < choiceBoxes.length; i++) {
             choiceBoxes[i].addEventListener('click', quizLogic.onClick);
-            choiceBoxes[i].setAttribute("class", "choicebox choiceboxdark");
+            choiceBoxes[i].setAttribute("class", "choicebox");
         }
-        choiceBoxes[1].setAttribute("class", "choicebox");
+        choiceBoxes[1].setAttribute("class", "choicebox choiceboxlight");
     }
 
     // Sets the question and answers to match the current level
@@ -263,6 +267,9 @@ var quizInterface = (function() {
         for (var i = 0; i < choiceBoxes.length; i++) {
             choiceBoxes[i].setAttribute("class", "hide");
         }
+        formBox.removeAttribute("class");
+        choiceBoxes[0].setAttribute("class", "choicebox choiceboxlight");
+        choiceBoxes[0].innerHTML = "Save Score";
     }
 
     // Handles the drawing of the fail screen
@@ -273,8 +280,13 @@ var quizInterface = (function() {
         for (var i = 0; i < choiceBoxes.length; i++) {
             choiceBoxes[i].setAttribute("class", "hide");
         }
-        choiceBoxes[0].setAttribute("class", "choicebox");
+        choiceBoxes[0].setAttribute("class", "choicebox choiceboxlight");
         choiceBoxes[0].innerHTML = "Try Again";
+    }
+
+    // Handles drawing the timer
+    function drawTimer() {
+        timerBox.textContent = "Time Left: " + timeRemaining;
     }
 
     // Reveal parts needed for the logic
@@ -282,7 +294,8 @@ var quizInterface = (function() {
         initQuiz : initQuiz,
         drawQuiz : drawQuiz,
         drawFail : drawFail,
-        drawPass : drawPass
+        drawPass : drawPass,
+        drawTimer : drawTimer
     }
 
 })();
