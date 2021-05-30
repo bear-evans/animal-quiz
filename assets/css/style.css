@@ -87,6 +87,22 @@ Choice Selection CSS
 }
 
 /* ==================================
+Leaderboard CSS
+================================== */
+table {
+ width: 100%;
+}
+
+td {
+    text-align: center;
+    border-bottom:1px solid white;
+}
+
+td:first-child {
+    background-color: rgba(255,255,255,0.25);
+}
+
+/* ==================================
 Footer CSS
 ================================== */
 

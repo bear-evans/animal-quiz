@@ -9,9 +9,13 @@ const choiceBoxes = document.querySelectorAll(".choicebox");
 const feedbackBox = document.getElementById("feedback");
 const timerBox = document.getElementById("timer");
 const formBox = document.getElementById("form");
+const nameBox = document.getElementById("name");
+const leaderTable = document.getElementById("score-list")
+const leaderBox = document.getElementById("leaderboard")
 
 var currentQuestion = 0;
 var completedQuestions = [];
+var scoreBoard = [];
 
 var timeRemaining = 0;
 var timer;
@@ -153,7 +157,10 @@ var quizLogic = (function() {
             checkAnswer(true); // button clicked matches the correct answer
         } else if (buttonClicked == " ") {
             return;
-        } 
+        } else if (buttonClicked == "Save Score") {
+            console.log("Save Score clicked");
+            saveScore();
+        }
         else {
             checkAnswer(false); // button clicked does NOT match the correct answer
         }
@@ -168,12 +175,14 @@ var quizLogic = (function() {
             checkTime();
         };
         if (numRight == 10) {
+            loadScores();
             quizInterface.drawPass(); // All questions answered right! Quiz over
         } else {
             incrementQuiz();
         };
     }
 
+    // decrements the time, updates the timer, and checks if time has run out
     function checkTime() {
         timeRemaining = timeRemaining - 1;
         quizInterface.drawTimer();
@@ -181,6 +190,59 @@ var quizLogic = (function() {
             console.log("Clearing timer")
             clearInterval(timer);
             quizInterface.drawFail();
+        }
+    }
+
+    // This functions saving the score to memory and then reloads the scores
+    function saveScore() {
+        let name = nameBox.value;
+        console.log("Save Score started");
+        if (name == null) {
+            return; // name is empty, do nothing
+        }
+        let score = {
+            "name": name,
+            "score": timeRemaining
+        };
+        console.log(score);
+        scoreBoard.push(score);
+        console.log(scoreBoard);
+        if (scoreBoard.length > 5) {
+            scoreBoard.shift(); // trims the leaderboard at 5
+        }
+
+        localStorage.setItem("scores", JSON.stringify(scoreBoard));
+
+        loadScores();
+        quizInterface.finishQuiz();
+    }
+    // This function handles the loading of scores from memory
+    function loadScores() {
+        tempStorage = JSON.parse(localStorage.getItem("scores"));
+
+        if (tempStorage == null) {
+            return; // cancel if there are no scores
+        }
+
+        scoreBoard = tempStorage;
+
+        console.log("new scoreboard: " + scoreBoard)
+        // loop through the scoreboard, adding table rows and cells
+        for (var i = 0; i < scoreBoard.length; i++) {
+            console.log("adding tr")
+            var tr = document.createElement("tr");
+            var nameCell = document.createElement("td");
+            var scoreCell = document.createElement("td");
+
+            nameCell.textContent = scoreBoard[i].name;
+            scoreCell.textContent = scoreBoard[i].score;
+
+            console.log("appending children")
+
+            tr.appendChild(nameCell);
+            tr.appendChild(scoreCell);
+
+            leaderTable.appendChild(tr);
         }
     }
 
@@ -257,19 +319,14 @@ var quizInterface = (function() {
     // Handles the drawing of the win screen
     function drawPass() {
         clearInterval(timer);
-        var playerName = window.prompt("You won! Please enter your name for the leaderboard.");
-        if (playerName == "") {
-            console.log("playerName is " + playerName);
-            playerName = "Player";
-            console.log("playerName is " + playerName);
-        }
-        questionBox.innerHTML = "<p>Congratulations, " + playerName + "! You completed the quiz with " + timeRemaining + " seconds on the clock.</p> <p>Thanks for playing!</p>";
+        questionBox.innerHTML = "<p>You won! Please enter your name for the leaderboard.</p> <p>Thanks for playing!</p>";
         for (var i = 0; i < choiceBoxes.length; i++) {
             choiceBoxes[i].setAttribute("class", "hide");
         }
         formBox.removeAttribute("class");
         choiceBoxes[0].setAttribute("class", "choicebox choiceboxlight");
         choiceBoxes[0].innerHTML = "Save Score";
+        leaderBox.removeAttribute("class")
     }
 
     // Handles the drawing of the fail screen
@@ -284,6 +341,13 @@ var quizInterface = (function() {
         choiceBoxes[0].innerHTML = "Try Again";
     }
 
+    function finishQuiz() {
+        timerBox.innerHTML = "";
+        timerBox.setAttribute("class", "hide");
+        nameBox.setAttribute("class", "hide");
+        choiceBoxes[0].setAttribute("class", "hide");
+    }
+
     // Handles drawing the timer
     function drawTimer() {
         timerBox.textContent = "Time Left: " + timeRemaining;
@@ -295,7 +359,8 @@ var quizInterface = (function() {
         drawQuiz : drawQuiz,
         drawFail : drawFail,
         drawPass : drawPass,
-        drawTimer : drawTimer
+        drawTimer : drawTimer,
+        finishQuiz : finishQuiz
     }
 
 })();
